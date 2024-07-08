@@ -25,6 +25,7 @@ jobs:
           echo "target_repository=$(echo "$payload" | jq -r '.["target-repository"]')" >> "$GITHUB_OUTPUT"
           echo "Author=$(echo "$payload" | jq -r '.["author"]')" >> "$GITHUB_OUTPUT"
           echo $commit_msg $source_repository $target_repository
+      
       - name: dispaly author
         run: |
-          echo "$Author"
+          echo "${{ steps.payload.outputs.Author}}"
