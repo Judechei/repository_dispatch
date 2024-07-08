@@ -18,4 +18,4 @@ jobs:
         uses: peter-evans/repository-dispatch@v3
         with:
           event-type: my-event
-          client-payload: '{"source-repository": "source_repo","target-repository": "target_repo","commit-msg": "hello"}'
+          client-payload: '{"source-repository": "source_repo","target-repository": "target_repo","commit-msg": "hello","author": "jude"}'
