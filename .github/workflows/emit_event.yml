@@ -1,0 +1,20 @@
+name: Emit Events
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+
+jobs:
+  emit_event:
+    runs-on: ubuntu-latest
+    steps:       
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          event-type: my-event
+          client-payload: '{"source-repository": "source_repo","target-repository": "target_repo","commit-msg": "hello"}'

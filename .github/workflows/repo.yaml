@@ -1,0 +1,26 @@
+name: raw-commit
+
+on:
+  repository_dispatch:
+    types: "my-event"
+
+jobs:
+  display-repository-dispatch-event:
+    runs-on: ubuntu-latest
+    steps:
+      - name : checkout
+        uses: actions/checkout@v2
+        with:
+          path: self_repo
+
+      - name: Display Event Payload
+        id : payload
+        run: |
+          echo "Event: ${{ github.event.action }}"
+          echo "Client Payload:"
+          echo "${{ toJson(github.event.client_payload) }}"
+          payload='${{ toJson(github.event.client_payload) }}'
+          echo "commit_msg=$(echo "$payload" | jq -r '.["commit-msg"]')" >> "$GITHUB_OUTPUT"
+          echo "source_repository=$(echo "$payload" | jq -r '.["source-repository"]')" >> "$GITHUB_OUTPUT"
+          echo "target_repository=$(echo "$payload" | jq -r '.["target-repository"]')" >> "$GITHUB_OUTPUT"
+          echo $commit_msg $source_repository $target_repository
